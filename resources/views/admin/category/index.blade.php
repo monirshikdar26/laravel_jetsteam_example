@@ -3,6 +3,14 @@
 
     <div class="py-12">
         <div class="container">
+            @if (session('Success'))
+            <div class="alert alert-success alert-dismissible face show" role="alert">
+                <strong>{{ session('Success') }}</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            @endif
             <div class="row">
                 <div class="col-md-8">
                     <div class="card">
@@ -12,23 +20,25 @@
                                 <thead>
                                 <tr>
                                     <th scope="col">SL no</th>
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Email</th>
+                                    <th scope="col">User Id</th>
+                                    <th scope="col">Category Name</th>
                                     <th scope="col">Created At</th>
                                 </tr>
                                 </thead>
                                 <tbody>
 
+                                @foreach ($category as $item)
                                 <tr>
-                                    <th scope="row"></th>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <th scope="row">{{ $category->firstItem()+$loop->index }}</th>
+                                    <td>{{ $item->user->name }}</td>
+                                    <td>{{ $item->category_name }}</td>
+                                    <td>{{ $item->created_at }}</td>
                                 </tr>
-
+                                @endforeach
 
                                 </tbody>
                             </table>
+                            {{ $category->links() }}
                         </div>
                     </div>
                 </div>
@@ -40,7 +50,7 @@
                                 @csrf
                                 <div class="form-group">
                                 <label for="exampleInputEmail1">Category Name</label>
-                                <input type="email" name="category_name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                                <input type="text" name="category_name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
 
                                 @error('category_name')
                                     <span class="text-danger">{{ $message }}</span>
