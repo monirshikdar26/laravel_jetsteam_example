@@ -12,7 +12,7 @@
             </div>
             @endif
             <div class="row">
-                <div class="col-md-8">
+                <div class="col-md-9">
                     <div class="card">
                         <div class="card-header">All Catagory</div>
                         <div class="card-body">
@@ -23,6 +23,7 @@
                                     <th scope="col">User Id</th>
                                     <th scope="col">Category Name</th>
                                     <th scope="col">Created At</th>
+                                    <th scope="col">Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -33,6 +34,10 @@
                                     <td>{{ $item->user->name }}</td>
                                     <td>{{ $item->category_name }}</td>
                                     <td>{{ $item->created_at }}</td>
+                                    <td>
+                                        <a href="{{ url('category/edit/'.$item->id) }}" class="btn btn-info">Edit</a>
+                                        <a href="{{ url('category/delete/'.$item->id) }}" class="btn btn-danger">Delete</a>
+                                    </td>
                                 </tr>
                                 @endforeach
 
@@ -42,7 +47,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="card">
                         <div class="card-header">Add Category</div>
                         <div class="card-body">
