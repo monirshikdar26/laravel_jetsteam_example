@@ -28,6 +28,9 @@ Route::get('/category/edit/{id}', [CategoryController::class,'Edit']);
 
 Route::post('/category/update/{id}', [CategoryController::class,'Update']);
 
+Route::get('/category/delete/{id}', [CategoryController::class,'Delete']);
+
+
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     $users = User::all();

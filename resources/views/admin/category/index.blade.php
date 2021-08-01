@@ -2,7 +2,7 @@
 
 
     <div class="py-12">
-        <div class="container">
+        <div class="container-fluid">
             @if (session('Success'))
             <div class="alert alert-success alert-dismissible face show" role="alert">
                 <strong>{{ session('Success') }}</strong>
@@ -35,6 +35,8 @@
                                     <td>{{ $item->category_name }}</td>
                                     <td>{{ $item->created_at }}</td>
                                     <td>
+                                        @csrf
+                                        @method('DELETE')
                                         <a href="{{ url('category/edit/'.$item->id) }}" class="btn btn-info">Edit</a>
                                         <a href="{{ url('category/delete/'.$item->id) }}" class="btn btn-danger">Delete</a>
                                     </td>
