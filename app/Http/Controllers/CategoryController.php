@@ -6,13 +6,15 @@ use App\Models\Category;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 
 class CategoryController extends Controller
 {
     public function AllCat(){
-        $category = Category::paginate(5);
+        $category = Category::latest()->paginate(5);
+        $trashCat = Category::onlyTrashed()->latest()->paginate(3);
 
-        return view('admin.category.index',compact('category'));
+        return view('admin.category.index',compact('category','trashCat'));
     }
 
     public function AddCat(Request $request){
@@ -59,9 +61,18 @@ class CategoryController extends Controller
         return Redirect()->Route('all.category')->with('Success','Category Updated Successfully');
     }
 
+    public function SoftDelete($id){
+        $delete = Category::find($id)->delete();
+        return Redirect()->back()->with('Success','Category Softdeleted successfully ');
+    }
 
-     public function Delete($id){
-         Category::find($id)->delete();
-         return redirect()->route('all.category')->with('Success','Category Deleted Successfully');
-     }
+    public function TrashCat(){
+        $trashCat = Category::onlyTrashed()->latest()->paginate(3);
+     return view('admin.category.trash',compact('trashCat'));
+    }
+
+     //public function Delete($id){
+       //  Category::find($id)->forceDelete();
+         //return redirect()->route('trash.category')->with('Success','Category Deleted Successfully');
+     //}
 }

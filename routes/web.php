@@ -28,7 +28,10 @@ Route::get('/category/edit/{id}', [CategoryController::class,'Edit']);
 
 Route::post('/category/update/{id}', [CategoryController::class,'Update']);
 
-Route::get('/category/delete/{id}', [CategoryController::class,'Delete']);
+Route::get('/category/trash', [CategoryController::class,'TrashCat'])->name('trash.category');
+
+Route::get('category/softdelete/{id}', [CategoryController::class,'SoftDelete']);
+
 
 
 
