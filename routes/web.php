@@ -30,14 +30,14 @@ Route::post('/category/update/{id}', [CategoryController::class,'Update']);
 
 Route::get('/category/trash', [CategoryController::class,'TrashCat'])->name('trash.category');
 
-Route::get('category/softdelete/{id}', [CategoryController::class,'SoftDelete']);
+Route::get('/category/softdelete/{id}', [CategoryController::class,'SoftDelete']);
 
+Route::get('/category/restore/{id}', [CategoryController::class,'Restore']);
 
-
+Route::get('/category/delete/{id}', [CategoryController::class,'Delete']);
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     $users = User::all();
-
     //$users = DB::table('users')->get(); //query builder statement
     return view('dashboard',compact('users'));
 })->name('dashboard');

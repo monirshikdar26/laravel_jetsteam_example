@@ -3,7 +3,14 @@
 
     <div class="py-12">
         <div class="container">
-
+            @if (session('Success'))
+            <div class="alert alert-success alert-dismissible face show" role="alert">
+                <strong>{{ session('Success') }}</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            @endif
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
@@ -29,8 +36,8 @@
                                     <td>{{ $item->created_at }}</td>
                                     <td>
 
-                                        <a href="{{ url('category/edit/'.$item->id) }}" class="btn btn-info">Restore</a>
-                                        <a href="{{ url('category/delete/'.$item->id) }}" class="btn btn-danger">Delete</a>
+                                        <a href="{{ url('/category/restore/'.$item->id) }}" class="btn btn-info">Restore</a>
+                                        <a href="{{ url('/category/delete/'.$item->id) }}" class="btn btn-danger">Delete</a>
                                     </td>
                                 </tr>
                                 @endforeach
