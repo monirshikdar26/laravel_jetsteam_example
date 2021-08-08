@@ -42,11 +42,47 @@ class brandController extends Controller
         $brand->brand_image = $img_file;
         //$brand->created_at = Carbon::now();
         $brand->save();
-        return Redirect()->back()-with('Success','Brand added successfuly');
+        return Redirect()->back()->with('Success','Brand added successfuly');
 
     }
 
-    public function Edit(){
+    public function Edit($id){
+        $brand = Brand::find($id);
+        return view('admin.brand.edit', compact('brand'));
+    }
+
+    public function Update(Request $request,$id){
+        $validatedData = $request->validate([
+            'brand_name' => 'required|min:4',
+            'brand_image' => 'required|mimes:jpg,jpeg,png',
+        ],
+        [
+            'brand_name.required' => 'Please Input Brand Name',
+            'brand_image.min' => 'Image Longer then 4Chars',
+        ]);
+
+        $old_image = $request->old_image;
+
+        $brand_image = $request->file('brand_image');
+        $imageid_gen = hexdec(uniqid());
+        $img_extention = strtolower($brand_image->getClientOriginalExtension());
+        $img_name = $imageid_gen.'.'.$img_extention;
+        $upload_path = 'image/brand/';
+        $img_file = $upload_path.$img_name;
+        $brand_image->move($upload_path,$img_name);
+
+        unlink($old_image);
+
+        //Brand::find($id)->update([
+          //  'brand_name' => $request->brand_name,
+            //'brand_image' => $img_file
+        //]);
+        $brand = new Brand;
+        $brand->brand_name = $request->brand_name;
+        $brand->brand_image = $img_file;
+        $brand->update();
+
+        return Redirect()->back()->with('Success','Brand updated successfully');
 
     }
 

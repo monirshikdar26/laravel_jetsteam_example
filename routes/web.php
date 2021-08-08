@@ -43,7 +43,12 @@ Route::post('/brand/add', [brandController::class,'AddBrand'])->name('store.bran
 
 Route::get('/brand/edit/{id}', [brandController::class,'Edit']);
 
+Route::post('/brand/update/{id}', [brandController::class,'Update']);
+
 Route::get('/brand/delete/{id}', [brandController::class,'Delete']);
+
+
+
 
 
 

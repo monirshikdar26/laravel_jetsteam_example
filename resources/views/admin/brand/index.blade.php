@@ -32,7 +32,7 @@
                                 <tr>
                                     <th scope="row">{{ $brands->firstItem()+$loop->index }}</th>
                                     <td>{{ $item->brand_name }}</td>
-                                    <td><img src="" alt=""></td>
+                                    <td><img src="{{ asset($item->brand_image) }}" style="height: 40px; width:70px"></td>
                                     <td>
                                       {{ $item->created_at }}
                                     </td>
