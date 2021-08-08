@@ -61,7 +61,7 @@ class brandController extends Controller
             'brand_image.min' => 'Image Longer then 4Chars',
         ]);
 
-        $old_image = $request->old_image;
+        //$old_image = $request->old_image;
 
         $brand_image = $request->file('brand_image');
         $imageid_gen = hexdec(uniqid());
@@ -71,16 +71,16 @@ class brandController extends Controller
         $img_file = $upload_path.$img_name;
         $brand_image->move($upload_path,$img_name);
 
-        unlink($old_image);
+        //unlink($old_image);
 
-        //Brand::find($id)->update([
-          //  'brand_name' => $request->brand_name,
-            //'brand_image' => $img_file
-        //]);
-        $brand = new Brand;
-        $brand->brand_name = $request->brand_name;
-        $brand->brand_image = $img_file;
-        $brand->update();
+        Brand::find($id)->update([
+            'brand_name' => $request->brand_name,
+            'brand_image' => $img_file
+        ]);
+        //$brand = new Brand::find($id);
+        //$brand->brand_name = $request->brand_name;
+        //$brand->brand_image = $img_file;
+        //$brand->update();
 
         return Redirect()->back()->with('Success','Brand updated successfully');
 
