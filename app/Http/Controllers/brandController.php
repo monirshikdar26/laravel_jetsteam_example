@@ -73,14 +73,14 @@ class brandController extends Controller
 
         //unlink($old_image);
 
-        Brand::find($id)->update([
-            'brand_name' => $request->brand_name,
-            'brand_image' => $img_file
-        ]);
-        //$brand = new Brand::find($id);
-        //$brand->brand_name = $request->brand_name;
-        //$brand->brand_image = $img_file;
-        //$brand->update();
+        //Brand::find($id)->update([
+          //  'brand_name' => $request->brand_name,
+            //'brand_image' => $img_file
+        //]);
+        $brand = Brand::find($id);
+        $brand->brand_name = $request->brand_name;
+        $brand->brand_image = $img_file;
+        $brand->update();
 
         return Redirect()->back()->with('Success','Brand updated successfully');
 
