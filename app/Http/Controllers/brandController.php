@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Brand;
 use Carbon\Carbon;
+use App\Models\Brand;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Redirect;
 
 class brandController extends Controller
@@ -29,20 +30,26 @@ class brandController extends Controller
 
 
         $brand_image = $request->file('brand_image');
-        $imageid_gen = hexdec(uniqid());
-        $img_extention = strtolower($brand_image->getClientOriginalExtension());
-        $img_name = $imageid_gen.'.'.$img_extention;
-        $upload_path = 'image/brand/';
-        $img_file = $upload_path.$img_name;
-        $brand_image->move($upload_path,$img_name);
 
+        //$imageid_gen = hexdec(uniqid());
+        //$img_extention = strtolower($brand_image->getClientOriginalExtension());
+        //$img_name = $imageid_gen.'.'.$img_extention;
+        //$upload_path = 'image/brand/';
+        //$img_file = $upload_path.$img_name;
+        //$brand_image->move($upload_path,$img_name);
+
+        $imageid_gen = hexdec(uniqid()).'.'.$brand_image->getClientOriginalExtension();
+        Image::make($brand_image)->resize(300,200)->save('image/brand/'.$imageid_gen);
+
+        $last_img = 'image/brand/'.$imageid_gen;
 
         $brand = new Brand;
         $brand->brand_name = $request->brand_name;
-        $brand->brand_image = $img_file;
+        $brand->brand_image = $last_img;
         //$brand->created_at = Carbon::now();
         $brand->save();
         return Redirect()->back()->with('Success','Brand added successfuly');
+
 
     }
 
