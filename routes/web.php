@@ -1,10 +1,11 @@
 <?php
 
-use App\Http\Controllers\brandController;
-use App\Http\Controllers\CategoryController;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\brandController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\MultipicController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,6 +47,13 @@ Route::get('/brand/edit/{id}', [brandController::class,'Edit']);
 Route::post('/brand/update/{id}', [brandController::class,'Update']);
 
 Route::get('/brand/delete/{id}', [brandController::class,'Delete']);
+
+//Multiple Image Route
+Route::get('/multipic/all', [MultipicController::class,'AllMultipic'])->name('all.multipic');
+
+Route::post('/multipic/add', [MultipicController::class,'Addmultipic'])->name('store.multipic');
+
+
 
 
 
